@@ -82,13 +82,13 @@ class ChannelManager(object):
         self.socket_on_max_duration[socket_number] = 0
 
     # ------------------------------------------------------------------------------------------------------------------
-    def all_on(self):
+    def socket_all_on(self):
         logging.info('Sending on command to all sockets (default duration of 15 minutes)')
         for socket_number in self.socket_pin_assignments.items():
             self.socket_on(socket_number)
 
     # ------------------------------------------------------------------------------------------------------------------
-    def all_off(self):
+    def socket_all_off(self):
         logging.info('Sending off command to all sockets')
         for socket_number in self.socket_pin_assignments.items():
             self.socket_off(socket_number)
