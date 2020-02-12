@@ -122,4 +122,4 @@ class ChannelManager(object):
 
         states = [ c1, c2, c3 ]
         logging.info('All Channels {}'.format(states))
-        return states.asJson()
+        return json.dumps(states)
