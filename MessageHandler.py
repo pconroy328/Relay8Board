@@ -68,22 +68,16 @@ class MessageHandler(object):
 
     # ---------------------------------------------------------------------
     def send_status_info(self):
-        #logging.DEBUG('Sending System Status Info on 'NODE' topic!')
+        logging.info('Sending relay status info!')
         data = {}
-        data['topic'] = 'NODE'
+        data['topic'] = 'RELAY/RV8.1/STATUS'
         data['datetime'] = datetime.datetime.now().replace(microsecond=0).isoformat()
-        json_data = SystemStats().asJSON()
-        self.client.publish('NODE', json_data, qos=0)
+        data['id'] = 'RV8.1'
 
-    # ---------------------------------------------------------------------
-    def send_host_status_info(self):
-        logging.info('Sending System Status Info on node name topic')
-        topic = SystemStats().get_hostname().upper()
-        data = {}
-        data['datetime'] = datetime.datetime.now().replace(microsecond=0).isoformat()
-        json_data = SystemStats().asJSON()
-        data['topic'] = topic
-        self.client.publish(topic, json_data, qos=0)
+        json_data = self.channel_manager.status_as_json()
+        logging.info('Final status as JSON {}'.format(json_data))
+        self.client.publish(data['topic'], json_data, qos=0)
+
 
     # ---------------------------------------------------------------------
     def check_for_duration_exceeded(self):

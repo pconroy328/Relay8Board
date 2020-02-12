@@ -1,6 +1,7 @@
 import logging
 import RPi.GPIO as GPIO
 import time
+import json
 
 class ChannelManager(object):
 
@@ -85,14 +86,12 @@ class ChannelManager(object):
     def socket_all_on(self):
         logging.info('Sending on command to all sockets (default duration of 15 minutes)')
         for socket_number,pin_number in self.socket_pin_assignments.items():
-            logging.error("+++")
             self.socket_on(socket_number,(15*60))
 
     # ------------------------------------------------------------------------------------------------------------------
     def socket_all_off(self):
         logging.info('Sending off command to all sockets')
         for socket_number,pin_number in self.socket_pin_assignments.items():
-            logging.error("---")
             self.socket_off(socket_number)
 
     # ------------------------------------------------------------------------------------------------------------------
@@ -102,10 +101,25 @@ class ChannelManager(object):
 
         for socket_num,pin_number in self.socket_pin_assignments.items():
             if self.socket_states[socket_num] == 'on':
-                logging.debug('socket {} is on'.format(socket_num))
                 max_seconds_on = self.socket_on_max_duration[socket_num]
                 total_seconds_on = time_now - self.socket_on_time[socket_num]
                 logging.debug('socket {} seconds on {} max_seconds_on {}'.format(socket_num,total_seconds_on,max_seconds_on))
                 if (total_seconds_on > max_seconds_on):
                     logging.warning('Maximum On Time reached for socket {}. Sending off command'.format(socket_num))
                     self.socket_off(socket_num)
+
+    # ------------------------------------------------------------------------------------------------------------------
+    def status_as_json(self):
+        logging.info('Returning status as JSON')
+
+        c1 = { "channel" : 1, "state" : self.socket_states[1], "duration" : self.socket_on_max_duration[1] }
+        logging.info('Channel 1 {}'.format(c1))
+
+        c2 = { "channel" : 2, "state" : self.socket_states[2], "duration" : self.socket_on_max_duration[2] }
+        logging.info('Channel 2 {}'.format(c2))
+        c3 = { "channel" : 3, "state" : self.socket_states[3], "duration" : self.socket_on_max_duration[3] }
+        logging.info('Channel 3 {}'.format(c3))
+
+        states = [ c1, c2, c3 ]
+        logging.info('All Channels {}'.format(states))
+        return states.asJson()

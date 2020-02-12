@@ -57,6 +57,11 @@ logging.debug('Connecting to {}'.format(mqtt_broker_address))
 m = MessageHandler(broker_address=mqtt_broker_address)
 m.start()
 
+loop_count = 0
 while True:
     m.check_for_duration_exceeded()
     time.sleep(5)
+
+    loop_count += 1
+    if (loop_count % (60 / 5) == 0):
+        m.send_status_info()
