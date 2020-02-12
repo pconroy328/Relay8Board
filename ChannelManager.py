@@ -49,7 +49,7 @@ class ChannelManager(object):
 
         GPIO.setmode(GPIO.BCM)
         for key, value in self.socket_pin_assignments.items():
-            logging.info( "Setting socket {} pin {] to GPIO Output".format(key,value))
+            logging.info( "Setting socket {} pin {} to GPIO Output".format(key,value))
             GPIO.setup(value, GPIO.OUT)
         pass
 
