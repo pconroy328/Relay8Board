@@ -81,3 +81,7 @@ class MessageHandler(object):
         json_data = SystemStats().asJSON()
         data['topic'] = topic
         self.client.publish(topic, json_data, qos=0)
+
+    # ---------------------------------------------------------------------
+    def check_for_duration_exceeded(self):
+        self.channel_manager.check_for_duration_exceeded()
