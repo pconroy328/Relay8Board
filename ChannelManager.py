@@ -64,8 +64,8 @@ class ChannelManager(object):
 
         GPIO.output(pin_number,GPIO.LOW)
         self.socket_states[socket_number] = "on"
-        self.socket_on_time = time.time()
-        self.socket_on_max_duration = duration
+        self.socket_on_time[socket_number] = time.time()
+        self.socket_on_max_duration[socket_number] = duration
 
     # ------------------------------------------------------------------------------------------------------------------
     def socket_off(self, socket_number):
@@ -78,8 +78,8 @@ class ChannelManager(object):
 
         GPIO.output(pin_number, GPIO.HIGH)
         self.socket_states[socket_number] = "off"
-        self.socket_on_time = 0.0
-        self.socket_on_max_duration = 0
+        self.socket_on_time[socket_number] = 0.0
+        self.socket_on_max_duration[socket_number] = 0
 
     # ------------------------------------------------------------------------------------------------------------------
     def all_on(self):
