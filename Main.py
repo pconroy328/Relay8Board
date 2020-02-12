@@ -29,7 +29,7 @@ def discover_mqtt_host():
         i += 1
         if i > 50:
             break
-    zeroconf.close()
+    my_zeroconf.close()
     try:
         return info.server, host
     except AttributeError:
