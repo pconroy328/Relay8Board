@@ -85,12 +85,14 @@ class ChannelManager(object):
     def socket_all_on(self):
         logging.info('Sending on command to all sockets (default duration of 15 minutes)')
         for socket_number in self.socket_pin_assignments.items():
-            self.socket_on(socket_number)
+            logging.error("+++")
+            self.socket_on(socket_number,(15*60))
 
     # ------------------------------------------------------------------------------------------------------------------
     def socket_all_off(self):
         logging.info('Sending off command to all sockets')
         for socket_number in self.socket_pin_assignments.items():
+            logging.error("---")
             self.socket_off(socket_number)
 
     # ------------------------------------------------------------------------------------------------------------------
@@ -102,8 +104,7 @@ class ChannelManager(object):
             if self.socket_states[socket_num] == 'on':
                 logging.debug('socket {} is on'.format(socket_num))
                 max_seconds_on = self.socket_on_max_duration[socket_num]
-                second_on_time = self.socket_on_time[socket_num]
-                total_seconds_on = time_now - second_on_time
+                total_seconds_on = time_now - self.socket_on_time[socket_num]
                 logging.debug('socket {} seconds on {} max_seconds_on {}'.format(socket_num,total_seconds_on,max_seconds_on))
                 if (total_seconds_on > max_seconds_on):
                     logging.warning('Maximum On Time reached for socket {}. Sending off command'.format(socket_num))

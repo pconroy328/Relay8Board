@@ -47,6 +47,7 @@ class MessageHandler(object):
             else:
                 pass
         except:
+            loggging.error('Exception hit in decoding message')
             pass
 
     # ---------------------------------------------------------------------
