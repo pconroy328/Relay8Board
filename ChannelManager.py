@@ -112,15 +112,14 @@ class ChannelManager(object):
     def status(self):
         logging.info('Returning status as JSON')
 
-        c1 = { "channel" : 1, "state" : self.socket_states[1], "duration" : self.socket_on_max_duration[1] }
-        c2 = { "channel" : 2, "state" : self.socket_states[2], "duration" : self.socket_on_max_duration[2] }
-        c3 = { "channel" : 3, "state" : self.socket_states[3], "duration" : self.socket_on_max_duration[3] }
-        c4 = { "channel" : 4, "state" : self.socket_states[4], "duration" : self.socket_on_max_duration[4] }
-
-        c5 = { "channel" : 5, "state" : self.socket_states[5], "duration" : self.socket_on_max_duration[5] }
-        c6 = { "channel" : 6, "state" : self.socket_states[6], "duration" : self.socket_on_max_duration[6] }
-        c7 = { "channel" : 7, "state" : self.socket_states[7], "duration" : self.socket_on_max_duration[7] }
-        c8 = { "channel" : 8, "state" : self.socket_states[8], "duration" : self.socket_on_max_duration[8] }
+        c1 = { "duration" : self.socket_on_max_duration[1], "state" : self.socket_states[1], "channel" : 1 }
+        c2 = { "duration" : self.socket_on_max_duration[2], "state" : self.socket_states[2], "channel" : 2 }
+        c3 = { "duration" : self.socket_on_max_duration[3], "state" : self.socket_states[3], "channel" : 3 }
+        c4 = { "duration" : self.socket_on_max_duration[4], "state" : self.socket_states[4], "channel" : 4 }
+        c5 = { "duration" : self.socket_on_max_duration[5], "state" : self.socket_states[5], "channel" : 5 }
+        c6 = { "duration" : self.socket_on_max_duration[6], "state" : self.socket_states[6], "channel" : 6 }
+        c7 = { "duration" : self.socket_on_max_duration[7], "state" : self.socket_states[7], "channel" : 7 }
+        c8 = { "duration" : self.socket_on_max_duration[8], "state" : self.socket_states[8], "channel" : 8 }
 
         states = [ c1, c2, c3, c4, c5, c6, c7, c8 ]
         #logging.info('All Channels {}'.format(states))
