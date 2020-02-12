@@ -1,5 +1,5 @@
 import logging
-import zeroconf
+from zeroconf import ServiceBrowser, Zeroconf
 import time
 import sys
 from MessageHandler import MessageHandler
