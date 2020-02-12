@@ -2,7 +2,7 @@ import logging
 import zeroconf
 import time
 import sys
-import MessageHandler
+from MessageHandler import MessageHandler
 import socket
 
 
