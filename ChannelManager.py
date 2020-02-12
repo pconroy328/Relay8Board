@@ -55,7 +55,7 @@ class ChannelManager(object):
 
     # ------------------------------------------------------------------------------------------------------------------
     def socket_on(self, socket_number,duration=900):
-        if (socket_number <= 0 || socket_number > self.max_socket_num):
+        if (socket_number <= 0 or socket_number > self.max_socket_num):
             logging.error( "Invalid socket number {} passed to the on command".format(socket_number))
             return
 
@@ -69,7 +69,7 @@ class ChannelManager(object):
 
     # ------------------------------------------------------------------------------------------------------------------
     def socket_off(self, socket_number):
-        if (socket_number <= 0 || socket_number > self.max_socket_num):
+        if (socket_number <= 0 or socket_number > self.max_socket_num):
             logging.error( "Invalid socket number {} passed to the off command".format(socket_number))
             return
 
