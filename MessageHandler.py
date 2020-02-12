@@ -5,11 +5,13 @@ import paho.mqtt.client as mqtt
 from ChannelManager import ChannelManager
 
 class MessageHandler(object):
+
     def __init__(self, broker_address="mqtt.local"):
         # self.local_broker_address = ''
         self.broker_address = broker_address
         self.client = mqtt.Client(client_id="", clean_session=True, userdata=None)
         self.channel_manager = ChannelManager()
+        self.subscription_topic = 'RELAY'
 
     # ---------------------------------------------------------------------
     def on_connect(self, client, userdata, flags, rc):
@@ -54,12 +56,12 @@ class MessageHandler(object):
         self.client.on_message = self.on_message
         print('Start - connecting to ', self.broker_address)
         self.client.connect(self.broker_address)
-        # self.client.subscribe(self.doorStatusTopic,0)
+        self.client.subscribe(self.subscription_topic,0)
         self.client.loop_start()
 
     # ---------------------------------------------------------------------
     def cleanup(self):
-        # self.client.unsubscribe(self.doorStatusTopic)
+        self.client.unsubscribe(self.subscription_topic,0)
         self.client.disconnect()
         self.client.loop_stop()
 
