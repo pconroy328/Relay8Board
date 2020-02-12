@@ -73,8 +73,10 @@ class MessageHandler(object):
         data['topic'] = 'RELAY/RV8.1/STATUS'
         data['datetime'] = datetime.datetime.now().replace(microsecond=0).isoformat()
         data['id'] = 'RV8.1'
+        data['states'] = self.channel_manager.status_as_json()
 
-        json_data = self.channel_manager.status_as_json()
+        json_data = json.dumps(data)
+
         logging.info('Final status as JSON {}'.format(json_data))
         self.client.publish(data['topic'], json_data, qos=0)
 

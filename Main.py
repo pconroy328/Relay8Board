@@ -63,5 +63,7 @@ while True:
     time.sleep(5)
 
     loop_count += 1
+    # Send a status every minute
     if (loop_count % (60 / 5) == 0):
         m.send_status_info()
+        loop_count = 0

@@ -113,13 +113,15 @@ class ChannelManager(object):
         logging.info('Returning status as JSON')
 
         c1 = { "channel" : 1, "state" : self.socket_states[1], "duration" : self.socket_on_max_duration[1] }
-        logging.info('Channel 1 {}'.format(c1))
-
         c2 = { "channel" : 2, "state" : self.socket_states[2], "duration" : self.socket_on_max_duration[2] }
-        logging.info('Channel 2 {}'.format(c2))
         c3 = { "channel" : 3, "state" : self.socket_states[3], "duration" : self.socket_on_max_duration[3] }
-        logging.info('Channel 3 {}'.format(c3))
+        c4 = { "channel" : 4, "state" : self.socket_states[4], "duration" : self.socket_on_max_duration[4] }
 
-        states = [ c1, c2, c3 ]
-        logging.info('All Channels {}'.format(states))
+        c5 = { "channel" : 5, "state" : self.socket_states[5], "duration" : self.socket_on_max_duration[5] }
+        c6 = { "channel" : 6, "state" : self.socket_states[6], "duration" : self.socket_on_max_duration[6] }
+        c7 = { "channel" : 7, "state" : self.socket_states[7], "duration" : self.socket_on_max_duration[7] }
+        c8 = { "channel" : 8, "state" : self.socket_states[8], "duration" : self.socket_on_max_duration[8] }
+
+        states = [ c1, c2, c3, c4, c5, c6, c7, c8 ]
+        #logging.info('All Channels {}'.format(states))
         return json.dumps(states)
