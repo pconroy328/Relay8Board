@@ -100,9 +100,11 @@ class ChannelManager(object):
 
         for socket_num,pin_number in self.socket_pin_assignments.items():
             if self.socket_states[socket_num] == 'on':
-                seconds_on = time_now - self.socket_on_time[socket_num]
+                logging.debug('socket {} is on'.format(socket_num))
                 max_seconds_on = self.socket_on_max_duration[socket_num]
-                logging.debug('socket {} seconds on {} max_seconds_on {}'.format(socket_num,seconds_on,max_seconds_on))
-                if (seconds_on > max_seconds_on):
+                second_on_time = self.socket_on_time[socket_num]
+                total_seconds_on = time_now - second_on_time
+                logging.debug('socket {} seconds on {} max_seconds_on {}'.format(socket_num,total_seconds_on,max_seconds_on))
+                if (total_seconds_on > max_seconds_on):
                     logging.warning('Maximum On Time reached for socket {}. Sending off command'.format(socket_num))
                     self.socket_off(socket_num)
