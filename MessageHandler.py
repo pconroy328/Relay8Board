@@ -11,7 +11,7 @@ class MessageHandler(object):
         self.broker_address = broker_address
         self.client = mqtt.Client(client_id="", clean_session=True, userdata=None)
         self.channel_manager = ChannelManager()
-        self.subscription_topic = 'RELAY'
+        self.subscription_topic = 'RELAY/#'
 
     # ---------------------------------------------------------------------
     def on_connect(self, client, userdata, flags, rc):
