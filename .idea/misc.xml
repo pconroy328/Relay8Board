@@ -1,4 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+<<<<<<< HEAD
   <component name="ProjectRootManager" version="2" project-jdk-name="Python 3.6" project-jdk-type="Python SDK" />
+=======
+  <component name="ProjectRootManager" version="2" project-jdk-name="Python 3.6 (Relay8Board)" project-jdk-type="Python SDK" />
+>>>>>>> 07edc70672006fa217cb51129c2712fd3dcfd5eb
 </project>
