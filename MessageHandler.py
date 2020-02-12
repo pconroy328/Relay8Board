@@ -73,7 +73,7 @@ class MessageHandler(object):
         data['topic'] = 'RELAY/RV8.1/STATUS'
         data['datetime'] = datetime.datetime.now().replace(microsecond=0).isoformat()
         data['id'] = 'RV8.1'
-        data['states'] = self.channel_manager.status_as_json()
+        data['states'] = self.channel_manager.status()
 
         json_data = json.dumps(data)
 

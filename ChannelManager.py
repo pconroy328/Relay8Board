@@ -109,7 +109,7 @@ class ChannelManager(object):
                     self.socket_off(socket_num)
 
     # ------------------------------------------------------------------------------------------------------------------
-    def status_as_json(self):
+    def status(self):
         logging.info('Returning status as JSON')
 
         c1 = { "channel" : 1, "state" : self.socket_states[1], "duration" : self.socket_on_max_duration[1] }
@@ -124,4 +124,4 @@ class ChannelManager(object):
 
         states = [ c1, c2, c3, c4, c5, c6, c7, c8 ]
         #logging.info('All Channels {}'.format(states))
-        return json.dumps(states)
+        return states
