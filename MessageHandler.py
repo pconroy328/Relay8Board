@@ -37,7 +37,7 @@ class MessageHandler(object):
                 if command == 'ON':
                     self.channel_manager.socket_on(channel,duration)
                 elif command == 'OFF':
-                    self.channel_manager.socket_on(channel,duration)
+                    self.channel_manager.socket_off(channel)
                 elif command == 'ALLON':
                     self.channel_manager.socket_all_on()
                 elif command == 'ALLOFF':
