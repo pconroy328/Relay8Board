@@ -84,14 +84,14 @@ class ChannelManager(object):
     # ------------------------------------------------------------------------------------------------------------------
     def socket_all_on(self):
         logging.info('Sending on command to all sockets (default duration of 15 minutes)')
-        for socket_number in self.socket_pin_assignments.items():
+        for socket_number,pin_number in self.socket_pin_assignments.items():
             logging.error("+++")
             self.socket_on(socket_number,(15*60))
 
     # ------------------------------------------------------------------------------------------------------------------
     def socket_all_off(self):
         logging.info('Sending off command to all sockets')
-        for socket_number in self.socket_pin_assignments.items():
+        for socket_number,pin_number in self.socket_pin_assignments.items():
             logging.error("---")
             self.socket_off(socket_number)
 
