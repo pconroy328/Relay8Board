@@ -1,4 +1,5 @@
 #!/bin/bash
+cd /home/pconroy/Relay8Board/Scripts
 ./s1off.sh $1
 ./s2off.sh $1
 ./s3off.sh $1
