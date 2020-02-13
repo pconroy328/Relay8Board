@@ -37,7 +37,7 @@ def discover_mqtt_host():
 
 # ----------------------------------------------------------------------------------------------------------------------
 version='v0.0.2'
-logging.basicConfig(level=logging.DEBUG,
+logging.basicConfig(level=logging.INFO,
                     format='%(asctime)s %(levelname)s %(message)s',
                     filename='/tmp/relay8rv.log')
 logging.warning('Relay8rv starting. Version {}'.format(version))

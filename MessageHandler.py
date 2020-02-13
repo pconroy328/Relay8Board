@@ -74,7 +74,7 @@ class MessageHandler(object):
 
     # ---------------------------------------------------------------------
     def send_status_info(self):
-        logging.info('Sending relay status info!')
+        logging.debug('Sending relay status info!')
         try:
             data = {}
             data['topic'] = 'RELAY/RV8.1/STATUS'
@@ -84,7 +84,7 @@ class MessageHandler(object):
 
             json_data = json.dumps(data)
 
-            logging.info('Final status as JSON {}'.format(json_data))
+            logging.debug('Final status as JSON {}'.format(json_data))
             self.client.publish(data['topic'], json_data, qos=0)
         except Exception:
             logging.exception('Exception in sending status info')
