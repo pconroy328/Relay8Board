@@ -1,6 +1,7 @@
 import logging
 import json
 import datetime
+import sys
 import paho.mqtt.client as mqtt
 from ChannelManager import ChannelManager
 
@@ -43,11 +44,11 @@ class MessageHandler(object):
                 elif command == 'ALLOFF':
                     self.channel_manager.socket_all_off()
                 else:
-                    logging.error('Unrecognzied command in message {}. Payload {}'.format(command, jsonPayload))
+                    logging.error('Unrecognized command in message {}. Payload {}'.format(command, jsonPayload))
             else:
                 pass
-        except:
-            loggging.error('Exception hit in decoding message')
+        except Exception:
+            logging.exception('Exception hit in decoding message')
             pass
 
     # ---------------------------------------------------------------------
@@ -56,9 +57,14 @@ class MessageHandler(object):
         self.client.on_connect = self.on_connect
         self.client.on_message = self.on_message
         print('Start - connecting to ', self.broker_address)
-        self.client.connect(self.broker_address)
-        self.client.subscribe(self.subscription_topic,0)
-        self.client.loop_start()
+        try:
+            self.client.connect(self.broker_address)
+            self.client.subscribe(self.subscription_topic,0)
+            self.client.loop_start()
+        except Exception:
+            logging.exception('Exception hit trying to connect to MQTT broker {}'.format(self.broker_address))
+            logging.critical('Exiting on exception hit trying to connect to MQTT broker {}'.format(self.broker_address))
+            sys.exit(1)
 
     # ---------------------------------------------------------------------
     def cleanup(self):
@@ -69,17 +75,19 @@ class MessageHandler(object):
     # ---------------------------------------------------------------------
     def send_status_info(self):
         logging.info('Sending relay status info!')
-        data = {}
-        data['topic'] = 'RELAY/RV8.1/STATUS'
-        data['datetime'] = datetime.datetime.now().replace(microsecond=0).isoformat()
-        data['id'] = 'RV8.1'
-        data['states'] = self.channel_manager.status()
+        try:
+            data = {}
+            data['topic'] = 'RELAY/RV8.1/STATUS'
+            data['datetime'] = datetime.datetime.now().replace(microsecond=0).isoformat()
+            data['id'] = 'RV8.1'
+            data['states'] = self.channel_manager.status()
 
-        json_data = json.dumps(data)
+            json_data = json.dumps(data)
 
-        logging.info('Final status as JSON {}'.format(json_data))
-        self.client.publish(data['topic'], json_data, qos=0)
-
+            logging.info('Final status as JSON {}'.format(json_data))
+            self.client.publish(data['topic'], json_data, qos=0)
+        except Exception:
+            logging.exception('Exception in sending status info')
 
     # ---------------------------------------------------------------------
     def check_for_duration_exceeded(self):
