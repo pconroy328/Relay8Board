@@ -36,8 +36,10 @@ def discover_mqtt_host():
         return None
 
 # ----------------------------------------------------------------------------------------------------------------------
-version='v0.0.1'
-logging.basicConfig(filename='/tmp/relay8rv.log', level=logging.INFO)
+version='v0.0.2'
+logging.basicConfig(level=logging.DEBUG,
+                    format='%(asctime)s %(levelname)s %(message)s',
+                    filename='/tmp/relay8rv.log')
 logging.warning('Relay8rv starting. Version {}'.format(version))
 
 logging.info('Multicast DNS Service Discovery started')
