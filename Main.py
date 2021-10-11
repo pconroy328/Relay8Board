@@ -1,3 +1,7 @@
+#########################################
+## Tring to fix picking up the Roomba MQTT broker
+#########################################
+
 import logging
 from zeroconf import ServiceBrowser, Zeroconf
 import time
@@ -36,24 +40,29 @@ def discover_mqtt_host():
         return None
 
 # ----------------------------------------------------------------------------------------------------------------------
-version='v0.0.2'
+version='v0.1.3 roomba - passing in MQTT broker'
 logging.basicConfig(level=logging.INFO,
                     format='%(asctime)s %(levelname)s %(message)s',
                     filename='/tmp/relay8rv.log')
 logging.warning('Relay8rv starting. Version {}'.format(version))
 
-logging.info('Multicast DNS Service Discovery started')
-hostData = discover_mqtt_host()
-if (hostData is not None):
-    mqtt_broker_address = hostData[0]
-    logging.info( 'Found MQTT Broker using mDNS on {}.{}'.format(hostData[0], hostData[1]))
-else:
-    logging.warning('Unable to locate MQTT Broker using mDNS. Checking for command line argument')
-    try:
-        mqtt_broker_address = sys.argv[1]
-    except:
-        logging.critical('No MQTT Broker address passed in via command line')
-        sys.exit(1)
+try:
+   host = sys.argv[1]
+   mqtt_broker_address = sys.argv[1]
+except:
+   print( 'No host passed in on command line. Trying mDNS' )
+   logging.info('Multicast DNS Service Discovery started')
+   host = discover_mqtt_host()
+   if (host is not None):
+       mqtt_broker_address = host[0]
+       logging.info( 'Found MQTT Broker using mDNS on {}.{}'.format(host[0], host[1]))
+   else:
+       logging.warning('Unable to locate MQTT Broker using DNS')
+       try:
+           mqtt_broker_address = sys.argv[1]
+       except:
+           logging.critical('mDNS failed and no MQTT Broker address passed in via command line. Exiting')
+           sys.exit(1)
 
 logging.debug('Connecting to {}'.format(mqtt_broker_address))
 m = MessageHandler(broker_address=mqtt_broker_address)
